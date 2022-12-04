@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Empleosyavacantes',
       theme: ThemeData(),
-      home: const MyHomePage(),
+      home: const Principal(),
     );
   }
 }

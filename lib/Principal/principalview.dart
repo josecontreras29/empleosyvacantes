@@ -2,20 +2,33 @@ import 'package:empleosyvacantes/Components/components.dart';
 import 'package:empleosyvacantes/constants.dart';
 import 'package:empleosyvacantes/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class Principal extends StatefulWidget {
+  const Principal({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<Principal> createState() => _PrincipalState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  bool hovered2 = false;
+class _PrincipalState extends State<Principal> with TickerProviderStateMixin {
+  late AnimationController controller;
+  late Animation<double> animation;
+
+  @override
+  void initState() {
+    controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 1500));
+    animation = Tween(begin: 0.0, end: 1.0).animate(controller);
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Responsive responsive = Responsive(context);
+    controller.forward();
+    // Responsive responsive = Responsive(context);
+
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
@@ -52,11 +65,26 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              Positioned(
-                  top: 0, left: 0, child: WebsiteCards(photo: empleosbaq)),
+              PositionedTransition(
+                rect: RelativeRectTween(
+                  begin: RelativeRect.fromLTRB(
+                      -MediaQuery.of(context).size.width / 2.5,
+                      0,
+                      MediaQuery.of(context).size.width / 1.5,
+                      0),
+                  end: RelativeRect.fromLTRB(
+                      0, 0, MediaQuery.of(context).size.width / 2.5, 0),
+                ).animate(
+                  CurvedAnimation(parent: controller, curve: Curves.bounceOut),
+                ),
+                child: FadeTransition(
+                  opacity: animation,
+                  child: WebsiteCards(photo: empleosbaq),
+                ),
+              ),
               Positioned(
                   top: 0,
-                  right: 0               ,
+                  right: 0,
                   child: WebsiteCards(photo: empleosyvacantes))
             ],
           ),

@@ -24,7 +24,7 @@ class _WebsiteCardsState extends State<WebsiteCards> {
         });
       },
       child: AnimatedContainer(
-        color: Colors.red,
+        color: Colors.transparent,
         duration: const Duration(milliseconds: 300),
         width: hovered
             ? MediaQuery.of(context).size.width / 2.5
