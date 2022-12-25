@@ -44,7 +44,7 @@ class _PrincipalState extends State<Principal> with TickerProviderStateMixin {
                 children: [
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.person,
                         size: 22,
                       ),
@@ -56,7 +56,7 @@ class _PrincipalState extends State<Principal> with TickerProviderStateMixin {
                   ),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.groups,
                         size: 22,
                       ),
@@ -68,7 +68,7 @@ class _PrincipalState extends State<Principal> with TickerProviderStateMixin {
                   ),
                   Row(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.badge,
                         size: 22,
                       ),
@@ -99,7 +99,7 @@ class _PrincipalState extends State<Principal> with TickerProviderStateMixin {
                 duration: const Duration(seconds: 2), curve: Curves.ease);
             break;
           case "paginas_indicadores":
-            Scrollable.ensureVisible(paginas_indicadores.currentContext!,
+            Scrollable.ensureVisible(paginaseindicadores.currentContext!,
                 duration: const Duration(seconds: 2), curve: Curves.ease);
             break;
           case "servicios":
@@ -121,7 +121,7 @@ class _PrincipalState extends State<Principal> with TickerProviderStateMixin {
 
   GlobalKey home = GlobalKey();
   GlobalKey nosotros = GlobalKey();
-  GlobalKey paginas_indicadores = GlobalKey();
+  GlobalKey paginaseindicadores = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -129,29 +129,32 @@ class _PrincipalState extends State<Principal> with TickerProviderStateMixin {
     Responsive responsive = Responsive(context);
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      drawer: responsive.isMobile
+      endDrawer: responsive.isMobile
           ? Drawer(
-              child: Column(children: [
-                Container(
-                    alignment: Alignment.center,
-                    color: Colors.red,
-                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                    child: Text("INICIO")),
-                Container(
-                    alignment: Alignment.center,
-                    color: Colors.red,
-                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                    child: Text("INICIO")),
-                Container(
-                    alignment: Alignment.center,
-                    color: Colors.red,
-                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                    child: Text("INICIO")),
-              ]),
-            )
+            child: Column(children: [
+              Container(
+                  alignment: Alignment.center,
+                  color: Colors.red,
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 20),
+                  child: const Text("INICIO")),
+              Container(
+                  alignment: Alignment.center,
+                  color: Colors.red,
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 20),
+                  child: const Text("INICIO")),
+              Container(
+                  alignment: Alignment.center,
+                  color: Colors.red,
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 20),
+                  child: const Text("INICIO")),
+            ]),
+          )
           : null,
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
+        preferredSize: const Size.fromHeight(80),
         child: Container(color: Colors.transparent, child: appbar),
       ),
       body: Container(
@@ -240,7 +243,7 @@ class _PrincipalState extends State<Principal> with TickerProviderStateMixin {
                                 children: [
                                   Row(
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.person,
                                         size: 22,
                                       ),
@@ -252,7 +255,7 @@ class _PrincipalState extends State<Principal> with TickerProviderStateMixin {
                                   ),
                                   Row(
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.groups,
                                         size: 22,
                                       ),
@@ -265,7 +268,7 @@ class _PrincipalState extends State<Principal> with TickerProviderStateMixin {
                                   ),
                                   Row(
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.badge,
                                         size: 22,
                                       ),
@@ -285,13 +288,14 @@ class _PrincipalState extends State<Principal> with TickerProviderStateMixin {
                 ),
               ),
               Container(
-                key: paginas_indicadores,
+                key: paginaseindicadores,
                 alignment: Alignment.center,
-                margin: EdgeInsets.only(bottom: 200, left: 200, right: 200),
+                margin:
+                    const EdgeInsets.only(bottom: 200, left: 200, right: 200),
                 color: Colors.white,
                 width: MediaQuery.of(context).size.width,
                 height: 500,
-                child: Text(
+                child: const Text(
                   "PAGINAS/INDICADORES",
                   style: TextStyle(fontSize: 40),
                 ),

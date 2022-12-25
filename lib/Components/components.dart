@@ -58,133 +58,139 @@ class _PrincipalAppBarState extends State<PrincipalAppBar> {
   Widget build(BuildContext context) {
     Responsive responsive = Responsive(context);
     return AppBar(
-        backgroundColor: Colors.black,
-        actions: !responsive.isMobile
-            ? [
-                const Flexible(child: SizedBox()),
-                Flexible(
-                  flex: responsive.isTablet
-                      ? 3
-                      : responsive.isMobile
-                          ? 4
-                          : 1,
-                  child: Row(
-                    children: [
-                      Flexible(
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 10),
-                          alignment: Alignment.center,
-                          color: Colors.transparent,
-                          child: InkWell(
+       
+      toolbarHeight: 80,
+      backgroundColor: Colors.black,
+      leadingWidth: MediaQuery.of(context).size.width * 0.2,
+      leading: Container(
+          color: Colors.green, child: Image.network(empleosyvacanteslogo)),
+      actions: !responsive.isMobile
+          ? [
+              const Flexible(child: SizedBox()),
+              Flexible(
+                flex: responsive.isTablet
+                    ? 3
+                    : responsive.isMobile
+                        ? 4
+                        : 1,
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        alignment: Alignment.center,
+                        color: Colors.transparent,
+                        child: InkWell(
+                          hoverColor: Colors.transparent,
+                          overlayColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          onTap: () {
+                            widget.selected = "home";
+                            widget.sendActions();
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(3),
+                            child: Text(
+                              "INICIO",
+                              style: TextStylesProject.joffert,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        alignment: Alignment.center,
+                        color: Colors.transparent,
+                        child: InkWell(
                             hoverColor: Colors.transparent,
                             overlayColor:
                                 MaterialStateProperty.all(Colors.transparent),
                             onTap: () {
-                              widget.selected = "home";
+                              widget.selected = "nosotros";
                               widget.sendActions();
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(3),
                               child: Text(
-                                "INICIO",
+                                "NOSOTROS",
                                 style: TextStylesProject.joffert,
                                 textAlign: TextAlign.center,
                               ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Flexible(
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 10),
-                          alignment: Alignment.center,
-                          color: Colors.transparent,
-                          child: InkWell(
-                              hoverColor: Colors.transparent,
-                              overlayColor:
-                                  MaterialStateProperty.all(Colors.transparent),
-                              onTap: () {
-                                widget.selected = "nosotros";
-                                widget.sendActions();
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(3),
-                                child: Text(
-                                  "NOSOTROS",
-                                  style: TextStylesProject.joffert,
-                                  textAlign: TextAlign.center,
-                                ),
-                              )),
-                        ),
-                      ),
-                      Flexible(
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 10),
-                          alignment: Alignment.center,
-                          color: Colors.transparent,
-                          child: InkWell(
-                              hoverColor: Colors.transparent,
-                              overlayColor:
-                                  MaterialStateProperty.all(Colors.transparent),
-                              onTap: () {
-                                widget.selected = "paginas_indicadores";
-                                widget.sendActions();
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(3),
-                                child: Text(
-                                  "PAGINAS/INDICADORES",
-                                  style: TextStylesProject.joffert,
-                                  textAlign: TextAlign.center,
-                                ),
-                              )),
-                        ),
-                      ),
-                      Flexible(
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 10),
-                          alignment: Alignment.center,
-                          color: Colors.transparent,
-                          child: InkWell(
-                              hoverColor: Colors.transparent,
-                              overlayColor:
-                                  MaterialStateProperty.all(Colors.transparent),
-                              onTap: () {
-                                widget.selected = "servicios";
-                                widget.sendActions();
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(3),
-                                child: Text(
-                                  "SERVICIOS",
-                                  style: TextStylesProject.joffert,
-                                ),
-                              )),
-                        ),
-                      ),
-                      Flexible(
-                        child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 10),
-                            alignment: Alignment.center,
-                            color: Colors.transparent,
-                            child: Text(
-                              "RESEÑAS",
-                              style: TextStylesProject.joffert,
                             )),
                       ),
-                      Flexible(
-                        child: Container(
-                            alignment: Alignment.center,
-                            color: Colors.transparent,
-                            child: Text(
-                              "CONTACTANOS",
-                              style: TextStylesProject.joffert,
+                    ),
+                    Flexible(
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        alignment: Alignment.center,
+                        color: Colors.transparent,
+                        child: InkWell(
+                            hoverColor: Colors.transparent,
+                            overlayColor:
+                                MaterialStateProperty.all(Colors.transparent),
+                            onTap: () {
+                              widget.selected = "paginas_indicadores";
+                              widget.sendActions();
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(3),
+                              child: Text(
+                                "PAGINAS/INDICADORES",
+                                style: TextStylesProject.joffert,
+                                textAlign: TextAlign.center,
+                              ),
                             )),
                       ),
-                    ],
-                  ),
+                    ),
+                    Flexible(
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        alignment: Alignment.center,
+                        color: Colors.transparent,
+                        child: InkWell(
+                            hoverColor: Colors.transparent,
+                            overlayColor:
+                                MaterialStateProperty.all(Colors.transparent),
+                            onTap: () {
+                              widget.selected = "servicios";
+                              widget.sendActions();
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(3),
+                              child: Text(
+                                "SERVICIOS",
+                                style: TextStylesProject.joffert,
+                              ),
+                            )),
+                      ),
+                    ),
+                    Flexible(
+                      child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 10),
+                          alignment: Alignment.center,
+                          color: Colors.transparent,
+                          child: Text(
+                            "RESEÑAS",
+                            style: TextStylesProject.joffert,
+                          )),
+                    ),
+                    Flexible(
+                      child: Container(
+                          alignment: Alignment.center,
+                          color: Colors.transparent,
+                          child: Text(
+                            "CONTACTANOS",
+                            style: TextStylesProject.joffert,
+                          )),
+                    ),
+                  ],
                 ),
-              ]
-            : null);
+              ),
+            ]
+          : null,
+    );
   }
 }

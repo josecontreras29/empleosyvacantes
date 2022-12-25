@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 const empleosbaq = "photos/Empleosbaqlogo.jpeg";
 const empleosyvacantes = "photos/Empleosyvacanteslogo.jpeg";
 
+const empleosyvacanteslogo = "https://i.ibb.co/LJdDfwH/Whats-App-Image-2022-08-04-at-9-19-59-PM.jpg";
+
 // TEXT STYLES //
 
 abstract class TextStylesProject {
