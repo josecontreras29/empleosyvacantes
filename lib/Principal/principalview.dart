@@ -1,4 +1,6 @@
-import 'package:empleosyvacantes/Components/components.dart';
+import 'package:empleosyvacantes/Principal/appBar.dart';
+import 'package:empleosyvacantes/Principal/drawer.dart';
+import 'package:empleosyvacantes/Principal/seccionNosotros.dart';
 import 'package:empleosyvacantes/constants.dart';
 import 'package:empleosyvacantes/responsive.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +15,14 @@ class Principal extends StatefulWidget {
 class _PrincipalState extends State<Principal> with TickerProviderStateMixin {
   late AnimationController controller;
   late Animation<double> animation;
-  late Animation<double> animation2;
-  late Animation<double> animation3;
+  late PrincipalAppBar appbar;
+  late DrawerDefault drawer;
+  late InfoCuentaEmpleo empleosyvacantesSection;
+  final ScrollController scrollController = ScrollController();
+
+  GlobalKey home = GlobalKey();
+  GlobalKey nosotros = GlobalKey();
+  GlobalKey paginasIndicadores = GlobalKey();
 
   Animation<double> animationFade(double startValue) {
     animation = Tween(begin: 0.0, end: 5.0).animate(CurvedAnimation(
@@ -23,94 +31,53 @@ class _PrincipalState extends State<Principal> with TickerProviderStateMixin {
     return animation;
   }
 
-  late PrincipalAppBar appbar;
-  late Container empleosyvacantesSection;
-  final ScrollController scrollController = ScrollController();
+  void scrollMovement(String selected) {
+    switch (selected) {
+      case "Home":
+        Scrollable.ensureVisible(home.currentContext!,
+            duration: const Duration(seconds: 2), curve: Curves.ease);
+        break;
+      case "Nosotros":
+        Scrollable.ensureVisible(nosotros.currentContext!,
+            duration: const Duration(seconds: 2), curve: Curves.ease);
+        break;
+      case "Paginas/Indicadores":
+        Scrollable.ensureVisible(paginasIndicadores.currentContext!,
+            duration: const Duration(seconds: 2), curve: Curves.ease);
+        break;
+      case "Servicios":
+        break;
+      default:
+    }
+  }
+
   @override
   void initState() {
-    empleosyvacantesSection = Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.all(40),
-            child: WebsiteCards(photo: empleosyvacantes),
-          ),
-          Container(
-            color: Colors.yellow[700],
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.person,
-                        size: 22,
-                      ),
-                      Container(
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 10),
-                          child: const Text("@EMPLEOSYVACANTES")),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.groups,
-                        size: 22,
-                      ),
-                      Container(
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 10),
-                          child: const Text("MAS DE 20.000 SEGUIDORES")),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.badge,
-                        size: 22,
-                      ),
-                      Container(
-                          margin: const EdgeInsets.symmetric(vertical: 20),
-                          child: const Text(
-                            "ENFOCADA EN COMPARTIR \n EMPLEOS DE BOGOTA/MEDELLIN",
-                            textAlign: TextAlign.justify,
-                          )),
-                    ],
-                  ),
-                ]),
-          )
-        ],
-      ),
+    empleosyvacantesSection = InfoCuentaEmpleo(
+      infoAccount: const {
+        1: "MAS DE 20.000 SEGUIDORES",
+        2: "ENFOCADA EN COMPARTIR \n EMPLEOS DE BOGOTA/MEDELLIN",
+        3: "MAS DE 6000 PERSONAS POR HISTORIA"
+      },
+      photo: empleosyvacantes,
+      titleAccount: "@empleosyvacantes",
     );
     appbar = PrincipalAppBar(
       selected: "",
-      receiveActions: () {},
       sendActions: () {
-        switch (appbar.selected) {
-          case "home":
-            Scrollable.ensureVisible(home.currentContext!,
-                duration: const Duration(seconds: 2), curve: Curves.ease);
-            break;
-          case "nosotros":
-            Scrollable.ensureVisible(nosotros.currentContext!,
-                duration: const Duration(seconds: 2), curve: Curves.ease);
-            break;
-          case "paginas_indicadores":
-            Scrollable.ensureVisible(paginaseindicadores.currentContext!,
-                duration: const Duration(seconds: 2), curve: Curves.ease);
-            break;
-          case "servicios":
-            break;
-          default:
-        }
+        scrollMovement(appbar.selected);
+      },
+    );
+    drawer = DrawerDefault(
+      section: "",
+      sendActions: () {
+        scrollMovement(drawer.section);
       },
     );
     controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 5));
     super.initState();
+    controller.forward();
   }
 
   @override
@@ -119,40 +86,12 @@ class _PrincipalState extends State<Principal> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  GlobalKey home = GlobalKey();
-  GlobalKey nosotros = GlobalKey();
-  GlobalKey paginaseindicadores = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
-    controller.forward();
     Responsive responsive = Responsive(context);
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      endDrawer: responsive.isMobile
-          ? Drawer(
-            child: Column(children: [
-              Container(
-                  alignment: Alignment.center,
-                  color: Colors.red,
-                  margin: const EdgeInsets.symmetric(
-                      horizontal: 20, vertical: 20),
-                  child: const Text("INICIO")),
-              Container(
-                  alignment: Alignment.center,
-                  color: Colors.red,
-                  margin: const EdgeInsets.symmetric(
-                      horizontal: 20, vertical: 20),
-                  child: const Text("INICIO")),
-              Container(
-                  alignment: Alignment.center,
-                  color: Colors.red,
-                  margin: const EdgeInsets.symmetric(
-                      horizontal: 20, vertical: 20),
-                  child: const Text("INICIO")),
-            ]),
-          )
-          : null,
+      endDrawer: responsive.isMobile ? drawer : null,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80),
         child: Container(color: Colors.transparent, child: appbar),
@@ -213,6 +152,8 @@ class _PrincipalState extends State<Principal> with TickerProviderStateMixin {
                 ),
               ),
               Container(
+                color: Colors.grey,
+                height: screenSize.height,
                 margin: const EdgeInsets.only(bottom: 200),
                 child: Flex(
                   mainAxisAlignment: responsive.isMobile
@@ -224,71 +165,87 @@ class _PrincipalState extends State<Principal> with TickerProviderStateMixin {
                   direction:
                       responsive.isTablet ? Axis.vertical : Axis.horizontal,
                   children: [
+                    Flexible(child: SizedBox()),
                     empleosyvacantesSection,
-                    Container(
-                      key: nosotros,
-                      color: Colors.white,
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.all(40),
-                            child: WebsiteCards(photo: empleosbaq),
-                          ),
-                          Container(
-                            color: Colors.blue,
-                            child: Column(
+                    Flexible(child: SizedBox()),
+                    Flexible(
+                      flex: 2,
+                      child: Container(
+                        key: nosotros,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.all(40),
+                              child: Image.asset(
+                                empleosbaq,
+                                fit: BoxFit.fitWidth,
+                              ),
+                            ),
+                            Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.person,
-                                        size: 22,
-                                      ),
-                                      Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 20, horizontal: 10),
-                                          child: const Text("@EMPLEOSBAQ")),
-                                    ],
+                                  Container(
+                                    color: Colors.blue,
+                                    child: Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.person,
+                                          size: 22,
+                                        ),
+                                        Container(
+                                            margin: const EdgeInsets.symmetric(
+                                                vertical: 20, horizontal: 10),
+                                            child: const Text("@EMPLEOSBAQ")),
+                                      ],
+                                    ),
                                   ),
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.groups,
-                                        size: 22,
-                                      ),
-                                      Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 20, horizontal: 10),
-                                          child: const Text(
-                                              "MAS DE 20.000 SEGUIDORES")),
-                                    ],
+                                  Container(
+                                    color: Colors.blue,
+                                    child: Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.groups,
+                                          size: 22,
+                                        ),
+                                        Container(
+                                            margin: const EdgeInsets.symmetric(
+                                                vertical: 20, horizontal: 10),
+                                            child: const Text(
+                                                "MAS DE 20.000 SEGUIDORES")),
+                                      ],
+                                    ),
                                   ),
-                                  Row(
-                                    children: [
-                                      const Icon(
-                                        Icons.badge,
-                                        size: 22,
-                                      ),
-                                      Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 20),
-                                          child: const Text(
-                                              "ENFOCADA EN COMPARTIR \n EMPLEOS DEL ATLANTICO")),
-                                    ],
+                                  Container(
+                                    color: Colors.blue,
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: 20),
+                                    child: Row(
+                                      children: const [
+                                        Icon(
+                                          Icons.badge,
+                                          size: 22,
+                                        ),
+                                        Text(
+                                            "ENFOCADA EN COMPARTIR \n EMPLEOS DEL ATLANTICO"),
+                                      ],
+                                    ),
                                   ),
-                                ]),
-                          )
-                        ],
+                                ])
+                          ],
+                        ),
                       ),
                     ),
+                    Flexible(child: SizedBox()),
                   ],
                 ),
               ),
               Container(
-                key: paginaseindicadores,
+                key: paginasIndicadores,
                 alignment: Alignment.center,
                 margin:
                     const EdgeInsets.only(bottom: 200, left: 200, right: 200),
