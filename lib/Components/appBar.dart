@@ -53,12 +53,12 @@ class PrincipalAppBar extends StatelessWidget {
       toolbarHeight: 80,
       backgroundColor: Colors.black,
       leadingWidth: MediaQuery.of(context).size.width * 0.2,
-      leading: Container(
-          color: Colors.green,
-          child: Image.network(
-            empleosyvacanteslogo,
-            fit: BoxFit.fill,
-          )),
+      // leading: Container(
+      //     color: Colors.green,
+      //     child: Image.network(
+      //       empleosyvacanteslogo,
+      //       fit: BoxFit.fill,
+      //     )),
       actions: !responsive.isMobile
           ? [
               const Flexible(child: SizedBox()),

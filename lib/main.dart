@@ -1,4 +1,4 @@
-import 'package:empleosyvacantes/Principal/principalview.dart';
+import 'package:empleosyvacantes/Principal/principal.dart';
 
 import 'package:flutter/material.dart';
 
